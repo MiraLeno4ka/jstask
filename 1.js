@@ -3,11 +3,11 @@ var arr = [];
 document.getElementById('generate').onclick = function() {
     var count = document.getElementById("input");
     var val = count.value;
-    if (val > 2 && val <= 100) {
+    if (val > 2 && val <= 100 && Math.ceil(val)-val == 0) {
         var x = 50;
         arr = [];
         for (var i = 1; i <= val; i++) {
-            var circle = document.getElementById("circle").getContext("2d");
+            var circle = document.getElementById("canvas").getContext("2d");
             var rand = Math.floor(Math.random() * 101);
             circle.beginPath();
             circle.arc(x, 50, 20, 0, 2 * Math.PI);
@@ -36,7 +36,7 @@ function drawCircles(sortArr) {
     var x = 50;
 
     for (var i = 0; i < val; i++) {
-        var circle = document.getElementById("circle").getContext("2d");
+        var circle = document.getElementById("canvas").getContext("2d");
 
         circle.beginPath();
         circle.arc(x, 300, 20, 0, 2 * Math.PI);
