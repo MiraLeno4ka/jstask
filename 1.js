@@ -10,8 +10,6 @@ document.getElementById('generate').onclick = function() {
             var circle = document.getElementById("circle").getContext("2d");
             var rand = Math.floor(Math.random() * 101);
             circle.beginPath();
-            //center=(50,50) radius=20 angle=0 to 2P
-
             circle.arc(x, 50, 20, 0, 2 * Math.PI);
             circle.fillStyle = 'red';
             circle.fill();
@@ -41,8 +39,6 @@ function drawCircles(sortArr) {
         var circle = document.getElementById("circle").getContext("2d");
 
         circle.beginPath();
-        //center=(50,50) radius=20 angle=0 to 2P
-
         circle.arc(x, 300, 20, 0, 2 * Math.PI);
         circle.fillStyle = 'red';
         circle.fill();
