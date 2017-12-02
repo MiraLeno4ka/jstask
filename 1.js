@@ -1,3 +1,4 @@
+
 var arr = [];
 
 document.getElementById('generate').onclick = function() {
@@ -30,14 +31,14 @@ document.getElementById('generate').onclick = function() {
 
 }
 
-function drawCircles() {
+function drawCircles(sortArr) {
     var count = document.getElementById("input");
     var val = count.value;
     var x = 50;
 
     for (var i = 0; i < val; i++) {
         var circle = document.getElementById("canvas").getContext("2d");
-        //circle.clearRect(0, 0, canvas.width, canvas.height);
+
         circle.beginPath();
         circle.arc(x, 300, 20, 0, 2 * Math.PI);
         circle.fillStyle = 'red';
