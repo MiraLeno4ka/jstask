@@ -3,186 +3,125 @@ var arr = [];
 document.getElementById('generate').onclick = function() {
     var count = document.getElementById("input");
     var val = count.value;
-    var x = 50;
-    arr = [];
-    for (var i = 1; i <= val; i++) {
-        var circle = document.getElementById("circle").getContext("2d");
-        var rand = Math.floor(Math.random() * 101);
-        circle.beginPath();
-        //center=(50,50) radius=20 angle=0 to 2P
+    if (val > 2 && val <= 100 && Math.ceil(val)-val == 0) {
+        var x = 50;
+        arr = [];
+        for (var i = 1; i <= val; i++) {
+            var circle = document.getElementById("canvas").getContext("2d");
+            var rand = Math.floor(Math.random() * 101);
+            circle.beginPath();
+            circle.arc(x, 50, 20, 0, 2 * Math.PI);
+            circle.fillStyle = 'red';
+            circle.fill();
+            circle.fillStyle = 'yellow';
+            circle.fillText(rand, x, 50);
+            circle.lineWidth = 1;
+            circle.strokeStyle = 'green';
+            circle.stroke();
+            x += 50;
 
-        circle.arc(x, 50, 20, 0, 2 * Math.PI);
-        circle.fillStyle = 'red';
-        circle.fill();
-        circle.fillStyle = 'yellow';
-        circle.fillText(rand, x, 50);
-        circle.lineWidth = 1;
-        circle.strokeStyle = 'green';
-        circle.stroke();
-        x += 50;
-
-        arr.push(rand);
-
+            arr.push(rand);
+        }
+    } else {
+        alert("Введите целое число от 2 до 100");
     }
     console.log(arr);
 
 
 }
 
-document.getElementById('quicksort').onclick = function() {
-    sortArr = QuickSort(arr);
+function drawCircles() {
     var count = document.getElementById("input");
     var val = count.value;
     var x = 50;
 
     for (var i = 0; i < val; i++) {
-        var circle = document.getElementById("circle").getContext("2d");
-        
+        var circle = document.getElementById("canvas").getContext("2d");
+        //circle.clearRect(0, 0, canvas.width, canvas.height);
         circle.beginPath();
-        //center=(50,50) radius=20 angle=0 to 2P
-
         circle.arc(x, 300, 20, 0, 2 * Math.PI);
         circle.fillStyle = 'red';
         circle.fill();
         circle.fillStyle = 'black';
-        circle.fillText(sortArr[i], x, 300);
+        circle.fillText(arr[i], x, 300);
         circle.lineWidth = 1;
         circle.strokeStyle = 'green';
         circle.stroke();
         x += 50;
-
-       
-
     }
-      console.log(QuickSort(arr));
 }
-
-function QuickSort(A) {
-    //debugger;
-    if (A.length == 0) return [];
-    var a = [],
-        b = [],
-        p = A[0];
-    for (var i = 1; i < A.length; i++) {
-        if (A[i] < p) {
-            a[a.length] = A[i];
-        } else { b[b.length] = A[i]; }
+    document.getElementById('quicksort').onclick = function() {
+        arr = QuickSort(arr);
+        drawCircles();
+        console.log(QuickSort(arr));
     }
 
-    var firstArr = QuickSort(a);
-    var lastArr = QuickSort(b);
-    var A = firstArr.concat(p, lastArr);
+    function QuickSort(A) {
+        //debugger;
+        if (A.length == 0) return [];
+        var a = [],
+            b = [],
+            p = A[0];
+        for (var i = 1; i < A.length; i++) {
+            if (A[i] < p) {
+                a[a.length] = A[i];
+            } else { b[b.length] = A[i]; }
+        }
 
-    return A;
+        var firstArr = QuickSort(a);
+        var lastArr = QuickSort(b);
+        var A = firstArr.concat(p, lastArr);
 
-}
-
-
-document.getElementById('bubblesort').onclick = function() {
-        sortArr = BubbleSort(arr);
-    var count = document.getElementById("input");
-    var val = count.value;
-    var x = 50;
-
-    for (var i = 0; i < val; i++) {
-        var circle = document.getElementById("circle").getContext("2d");
-        
-        circle.beginPath();
-        //center=(50,50) radius=20 angle=0 to 2P
-
-        circle.arc(x, 300, 20, 0, 2 * Math.PI);
-        circle.fillStyle = 'red';
-        circle.fill();
-        circle.fillStyle = 'black';
-        circle.fillText(sortArr[i], x, 300);
-        circle.lineWidth = 1;
-        circle.strokeStyle = 'green';
-        circle.stroke();
-        x += 50;
-
-       
+        return A;
 
     }
-    console.log(BubbleSort(arr));
-}
 
-function BubbleSort(A) // A - массив, который нужно
-{ // отсортировать по возрастанию.
-    var n = A.length;
-    for (var i = 0; i < n - 1; i++) {
-        for (var j = 0; j < n - 1 - i; j++) {
-            if (A[j + 1] < A[j]) {
-                var t = A[j + 1];
-                A[j + 1] = A[j];
-                A[j] = t;
+
+    document.getElementById('bubblesort').onclick = function() {
+        arr = BubbleSort(arr);
+        drawCircles();
+        console.log(BubbleSort(arr));
+    }
+
+    function BubbleSort(A) // A - массив, который нужно
+    { // отсортировать по возрастанию.
+        var n = A.length;
+        for (var i = 0; i < n - 1; i++) {
+            for (var j = 0; j < n - 1 - i; j++) {
+                if (A[j + 1] < A[j]) {
+                    var t = A[j + 1];
+                    A[j + 1] = A[j];
+                    A[j] = t;
+                }
             }
         }
+        return A; // На выходе сортированный по возрастанию массив A.
     }
-    return A; // На выходе сортированный по возрастанию массив A.
-}
 
-document.getElementById('gnomesort').onclick = function() {
-    sortArr = GnomeSort(arr);
-    var count = document.getElementById("input");
-    var val = count.value;
-    var x = 50;
+    document.getElementById('gnomesort').onclick = function() {
+        arr = GnomeSort(arr);
+        drawCircles();
+        console.log(GnomeSort(arr));
+    }
 
-    for (var i = 0; i < val; i++) {
-        var circle = document.getElementById("circle").getContext("2d");
-        
-        circle.beginPath();
-        //center=(50,50) radius=20 angle=0 to 2P
-
-        circle.arc(x, 300, 20, 0, 2 * Math.PI);
-        circle.fillStyle = 'red';
-        circle.fill();
-        circle.fillStyle = 'black';
-        circle.fillText(sortArr[i], x, 300);
-        circle.lineWidth = 1;
-        circle.strokeStyle = 'green';
-        circle.stroke();
-        x += 50;
-
-       
-
-    }console.log(GnomeSort(arr));
-}
-
-function GnomeSort(A) {
-    var n = A.length,
-        i = 1,
-        j = 2;
-    while (i < n) {
-        if (A[i - 1] < A[i]) {
-            i = j;
-            j++;
-        } else {
-            var t = A[i - 1];
-            A[i - 1] = A[i];
-            A[i] = t;
-            i--;
-            if (i == 0) {
+    function GnomeSort(A) {
+        var n = A.length,
+            i = 1,
+            j = 2;
+        while (i < n) {
+            if (A[i - 1] < A[i]) {
                 i = j;
                 j++;
+            } else {
+                var t = A[i - 1];
+                A[i - 1] = A[i];
+                A[i] = t;
+                i--;
+                if (i == 0) {
+                    i = j;
+                    j++;
+                }
             }
         }
+        return A;
     }
-    return A;
-}
-
-for (var j = 0; j < arr.length; j++) {
-    var circle = document.getElementById("circle").getContext("2d");
-    var x = 50;
-    circle.beginPath();
-    //center=(50,50) radius=20 angle=0 to 2P
-
-    circle.arc(x, 50, 20, 0, 2 * Math.PI);
-    circle.fillStyle = 'red';
-    circle.fill();
-    circle.fillStyle = 'yellow';
-    circle.fillText(arr[j], x, 50);
-    circle.lineWidth = 1;
-    circle.strokeStyle = 'green';
-    circle.stroke();
-    x += 50;
-}
